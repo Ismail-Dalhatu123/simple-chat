@@ -15,7 +15,7 @@ socket.emit("joinRoom", { username, room });
 
 (async () => {
   const res = await fetch(
-    `http://send-me-push.herokuapp.com/send?title=${username}&body=${room}`
+    `http://send-me-push.herokuapp.com/send?title=${username}&body=Just Joined: ${room} Room`
   );
 })();
 
