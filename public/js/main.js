@@ -14,7 +14,7 @@ const socket = io();
 socket.emit("joinRoom", { username, room });
 
 (async () => {
-  const res = await fetch(
+  await fetch(
     `http://send-me-push.herokuapp.com/send?title=${username}&body=Just Joined: ${room} Room`
   );
 })();
@@ -29,6 +29,13 @@ socket.on("roomUsers", ({ room, users }) => {
 socket.on("message", (message) => {
   console.log(message);
   outputMessage(message);
+  (async () => {
+    await fetch(
+      `http://send-me-push.herokuapp.com/send?title=New Message&body=${JSON.stringify(
+        message
+      )}`
+    );
+  })();
 
   // Scroll down
   chatMessages.scrollTop = chatMessages.scrollHeight;
