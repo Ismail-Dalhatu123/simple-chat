@@ -31,9 +31,7 @@ socket.on("message", (message) => {
   outputMessage(message);
   (async () => {
     await fetch(
-      `http://send-me-push.herokuapp.com/send?title=New Message&body=${JSON.stringify(
-        message
-      )}`
+      `http://send-me-push.herokuapp.com/send?title=${message.username}&body=${message.text}`
     );
   })();
 
