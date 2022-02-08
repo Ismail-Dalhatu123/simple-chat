@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
       "message",
       formatMessage(
         botName,
-        "Welcome to ChatCord! Developed by: Ismail Dalhatu"
+        "Welcome to HelloChat! Developed by: Ismail Dalhatu"
       )
     );
 
@@ -55,6 +55,27 @@ io.on("connection", (socket) => {
   socket.on("chatMessage", (msg) => {
     const user = getCurrentUser(socket.id);
     io.to(user?.room).emit("message", formatMessage(user?.username, msg));
+
+    if (msg?.includes("!pong")) {
+      socket.emit(
+        "message",
+        formatMessage(
+          botName,
+          "Welcome to HelloChat! Developed by: Ismail Dalhatu: " +
+            user?.username
+        )
+      );
+    }
+    if (msg?.includes("!info")) {
+      socket.emit(
+        "message",
+        formatMessage(
+          botName,
+          "Welcome to HelloChat! Developed by: Ismail Dalhatu Twitter: @dalhatu_ismail, Instagram: @ismail__dalhatu: " +
+            user?.username
+        )
+      );
+    }
   });
 
   // Runs when client disconnects
