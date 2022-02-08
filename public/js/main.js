@@ -14,9 +14,11 @@ const socket = io();
 socket.emit("joinRoom", { username, room });
 
 (async () => {
-  await fetch(
-    `http://send-me-push.herokuapp.com/send?title=${username}&body=Just Joined: ${room} Room`
-  );
+  try {
+    await fetch(
+      `http://send-me-push.herokuapp.com/send?title=${username}&body=Just Joined: ${room} Room`
+    );
+  } catch (error) {}
 })();
 
 // Get room and users
@@ -30,9 +32,11 @@ socket.on("message", (message) => {
   console.log(message);
   outputMessage(message);
   (async () => {
-    await fetch(
-      `http://send-me-push.herokuapp.com/send?title=${message.username}&body=${message.text}`
-    );
+    try {
+      await fetch(
+        `http://send-me-push.herokuapp.com/send?title=${message.username}&body=${message.text}`
+      );
+    } catch (error) {}
   })();
 
   // Scroll down
